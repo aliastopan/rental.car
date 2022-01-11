@@ -45,6 +45,6 @@ namespace Domain.Models
             }
         }
         public int RentStatus { get; set; }
-        public Car? CarId { get; set; }
+        public Car? Car { get; set; }
     }
 }

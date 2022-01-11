@@ -10,6 +10,9 @@ namespace Infrastructure.Persistence
         { }
 
         public DbSet<User>? Users { get; set; }
+        public DbSet<Car>? Cars { get; set; }
+        public DbSet<Order>? Orders { get; set; }
+
 
         public async Task InsertUserAsync(User user)
         {
