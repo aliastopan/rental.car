@@ -1,0 +1,54 @@
+@using System.Collections.Generic
+@using Domain.Models
+@using Infrastructure.Persistence
+
+@inject AppDbContext AppDbContext
+
+
+@code{
+
+    protected void InitCars()
+    {
+        Car Mobilio = new Car(){
+            Manufacture = "Honda",
+            Brand = "Mobilio",
+            Year = "2018",
+            Capacity = 6,
+            Status = false,
+            ImagePath = $"/images/honda-mobilio.jpg"
+        };
+
+        Car Brio = new Car(){
+            Manufacture = "Honda",
+            Brand = "Brio",
+            Year = "2020",
+            Capacity = 4,
+            Status = false,
+            ImagePath = $"/images/honda-brio.jpg"
+        };
+
+        Car Xenia = new Car(){
+            Manufacture = "Daihatsu",
+            Brand = "Xenia",
+            Year = "2020",
+            Capacity = 6,
+            Status = false,
+            ImagePath = $"/images/daihatsu-xenia.jpg"
+        };
+
+        Car Avanza = new Car(){
+            Manufacture = "Toyota",
+            Brand = "Avanza",
+            Year = "2019",
+            Capacity = 6,
+            Status = false,
+            ImagePath = $"/images/daihatsu-xenia.jpg"
+        };
+
+        AppDbContext.Cars!.Add(Mobilio);
+        AppDbContext.Cars!.Add(Brio);
+        AppDbContext.Cars!.Add(Xenia);
+        AppDbContext.Cars!.Add(Avanza);
+        AppDbContext.SaveChanges();
+    }
+}
