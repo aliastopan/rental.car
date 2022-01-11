@@ -1,0 +1,26 @@
+﻿@page "/"
+
+@using Infrastructure.Persistence
+@using Domain.Models
+
+@inject AppDbContext DataContext
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<br>
+@* <button class="btn btn-primary" @onclick="Login">Login</button> *@
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<AuthorizeView>
+    <Authorized>
+        <p>Hello, Developer @context.User.Identity!.Name</p>
+    </Authorized>
+</AuthorizeView>
+
+@code{
+
+}
