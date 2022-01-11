@@ -1,0 +1,53 @@
+@using Domain.Models
+
+<CascadingValue Value="Car">
+    <div class="_card">
+        <div class="_card-content">
+            <div class="_cc-status">
+                @Status
+            </div>
+            <div class="_cc-image">
+                <img src=@Car!.ImagePath alt="">
+            </div>
+            <div class="_cc-info">
+
+                <div class="_cc-brand">
+                    @Car!.Brand
+                </div>
+                <div class="_cc-detail">
+                    Kapasitas @Car!.Capacity Orang
+                </div>
+                <div>
+                    @if(!(bool)Car.Status!){
+                        <a href="/order/@Car.Id" class="my-2 p-2 btn btn-primary">Order</a>
+                    }
+                    else{
+                        @* <a href="#" class="my-2 p-2 btn btn-light">Order</a> *@
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</CascadingValue>
+
+@code{
+    #nullable disable
+
+    [Parameter]
+    public Car Car { get; set; }
+
+    public string Title {
+        get{
+            return $"{Car.Manufacture} {Car.Brand} ({Car.Year})";
+        }
+    }
+    public string Status {
+        get{
+            if((bool)Car!.Status!)
+                return "Tidak Tersedia";
+            else
+                return "Tersedia";
+        }
+    }
+
+}

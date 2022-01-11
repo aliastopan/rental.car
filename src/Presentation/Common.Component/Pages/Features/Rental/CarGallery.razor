@@ -4,8 +4,24 @@
 
 @inject AppDbContext AppDbContext
 
+<div class="_gallery">
+    @foreach (Car car in Cars)
+    {
+        <CarAds Car=@car />
+    }
+</div>
+
+@* <button class="btn btn-primary" @onclick="InitCars">Init Cars</button> *@
 
 @code{
+    #nullable disable
+    public List<Car> Cars;
+
+    protected override void OnInitialized()
+    {
+        Cars = AppDbContext.Cars.ToList();
+        System.Console.WriteLine($"Cars: {Cars.Count}");
+    }
 
     protected void InitCars()
     {

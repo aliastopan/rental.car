@@ -1,0 +1,62 @@
+._card{
+    margin: 1rem;
+
+    display: flex;
+    flex-direction: column;
+
+    background: white;
+    color: black;
+    width: 20rem;
+    height: 30rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    border: 1px solid black;
+}
+
+._card-content{
+    padding: 1rem;
+}
+
+._cc-status{
+    font-size: 1rem;
+    padding: 0 0.5rem;
+}
+
+._cc-image img{
+    padding: 1rem;
+    width: 100%;
+}
+
+._cc-info{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+._cc-brand{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+._cc-detail{
+    font-size: 1rem !important;
+
+}
+
+._cc-order{
+    height: 2rem;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    font-size: 1rem;
+    margin: 1rem;
+}
+
+button{
+    width: 100%;
+}
