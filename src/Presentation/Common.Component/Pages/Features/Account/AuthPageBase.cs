@@ -14,12 +14,19 @@ namespace Common.Component.Pages.Features.Account
 
         protected Guest Guest { get; init; } = new Guest();
 
+        protected string AuthMessage = "";
+
         protected async Task TryLoginAsync()
         {
             bool result = await Authenticator!.LogInAsync(Guest);
             if(result)
             {
                 NavigationManager!.NavigateTo("/");
+            }
+            else
+            {
+                AuthMessage = "Username atau Password salah.";
+                this.StateHasChanged();
             }
         }
     }
