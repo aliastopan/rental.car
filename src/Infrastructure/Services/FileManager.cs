@@ -30,6 +30,17 @@ namespace Infrastructure.Services
             FileStream fileStream = File.Create(filePath);
             // System.Console.WriteLine($"PATH: {filePath}");
             await stream.CopyToAsync(fileStream);
+            stream.Close();
+            fileStream.Close();
+        }
+
+        public void Upload(IBrowserFile file, string subfolder)
+        {
+            string filePath = GetFilePath(file, subfolder);
+            Stream stream = file.OpenReadStream();
+            FileStream fileStream = File.Create(filePath);
+            // System.Console.WriteLine($"PATH: {filePath}");
+            stream.CopyTo(fileStream);
 
             stream.Close();
             fileStream.Close();
