@@ -13,6 +13,26 @@ namespace Infrastructure.Persistence
         public DbSet<Car>? Cars { get; set; }
         public DbSet<Order>? Orders { get; set; }
 
+        public (Car, bool) GetCar(int carId)
+        {
+            var result = this.Cars!
+                .FirstOrDefault(car =>
+                    carId == car.Id);
+
+            return (result, result is not null)!;
+        }
+
+        public async void UpdateCarRentStatus(Car car)
+        {
+            this.Cars!.Update(car);
+            await this.SaveChangesAsync();
+        }
+
+        public async Task InserOrderAsync(Order order)
+        {
+            this.Orders!.Add(order);
+            await this.SaveChangesAsync();
+        }
 
         public async Task InsertUserAsync(User user)
         {
