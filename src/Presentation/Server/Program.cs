@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
 // using Application.Services;
@@ -15,6 +16,9 @@ builder.Services.AddRazorPages( options =>
     options.RootDirectory = "/Pages/Shared"
 );
 builder.Services.AddServerSideBlazor();
+builder.Services.AddDataProtection()
+    .SetApplicationName("Web.App");
+
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddScoped<FileManager>();

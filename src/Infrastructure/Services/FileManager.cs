@@ -1,5 +1,6 @@
 using System.IO;
 using  Microsoft.AspNetCore.Components.Forms;
+using Infrastructure.Common;
 
 namespace Infrastructure.Services
 {
@@ -25,6 +26,9 @@ namespace Infrastructure.Services
 
         public async Task UploadAsync(IBrowserFile file, string subfolder)
         {
+            string guid = Guid.NewGuid().ShortenGuid();
+            File.Move(file.Name, guid);
+
             string filePath = GetFilePath(file, subfolder);
             Stream stream = file.OpenReadStream();
             FileStream fileStream = File.Create(filePath);

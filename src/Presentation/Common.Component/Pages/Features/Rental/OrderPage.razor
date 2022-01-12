@@ -116,6 +116,10 @@
     {
         if(file is not null)
         {
+            var fileName = file.Name;
+            var guid = Guid.NewGuid().ShortenGuid();
+            
+
             await FileManager!.UploadAsync(file, subfolder);
             var (car, result) = AppDbContext.GetCar(CarId);
             car.Status = !car.Status;
