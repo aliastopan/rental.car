@@ -69,7 +69,7 @@ namespace Infrastructure.Services
 
             File.Move(filePath, rename);
 
-            return rename;
+            return $"{guid}{extension}";
         }
     }
 }
