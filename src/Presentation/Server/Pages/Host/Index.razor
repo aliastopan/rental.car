@@ -1,9 +1,11 @@
 ﻿@page "/"
 
 @using Infrastructure.Persistence
+@using Infrastructure.Services
 @using Domain.Models
 
 @inject AppDbContext DataContext
+@inject FileManager FileManager
 
 <PageTitle>Index</PageTitle>
 
@@ -26,5 +28,11 @@ Selamat datang di Rental Mobil <strong>Meliwis Putih</strong>
 </div>
 
 @code{
+    protected override void OnInitialized()
+    {
+        string subfolder = $"images\\ktp";
+        string directory = FileManager.GetRootDirectory(subfolder);
 
+        System.Console.WriteLine($"root folder: {directory}");
+    }
 }
