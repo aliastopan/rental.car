@@ -28,11 +28,38 @@
             class="form-control __gap"
             OnChange="@OnInputFileChange">
         </InputFile>
+        <label for="dob"> Tanggal Pengambilan: </label>
+        <InputDate
+            for="dob"
+            class="form-control __gap"
+            @onchange="RentDurationCalc"
+            @bind-Value="Order.DateDepart">
+        </InputDate>
+        <label for="dob"> Tanggal Pengembalian: </label>
+        <InputDate
+            for="dob"
+            class="form-control __gap"
+            @onchange="RentDurationCalc"
+            @bind-Value="Order.DateReturn">
+        </InputDate>
+        <div class="__gap">
+            <span>Lama Peminjaman: @rentDuration hari</span>
+        </div>
+        <div class="__gap">
+            <span>Total Biaya: Rp.@cost</span>
+        </div>
         <button
             class="btn btn-primary __gap"
-            @onclick="UploadFile"
-            type="submit">Order
+            @onclick="DebugValue">
+            DEBUG VALUE
         </button>
+        <button
+            class="btn btn-primary __gap"
+            @onclick="SendOrder"
+            type="submit">
+            Order
+        </button>
+
     </div>
 </EditForm>
 
@@ -44,13 +71,25 @@
     public int CarId { get; set; }
     public Order Order { get; set; } = new Order();
     private int rentDuration;
+
+    private int cost;
     private IBrowserFile? file;
     private string subfolder = $"images/ktp";
-
     private void OnInputFileChange(InputFileChangeEventArgs e)
     {
+        var x = Order.DateDepart;
         file = e.File;
         Order.KTP = FileManager.GetFilePath(file, subfolder);
+    }
+
+    public void DebugValue()
+    {
+        RentDurationCalc();
+    }
+
+    public void CostCalc()
+    {
+        cost = Order.Cost;
     }
 
     public void RentDurationCalc()
@@ -66,9 +105,10 @@
 
     }
 
-    private void SendOrder()
+    private async Task SendOrder()
     {
-
+        if(duration > 0)
+            await UploadFile();
     }
 
     private async Task UploadFile()
