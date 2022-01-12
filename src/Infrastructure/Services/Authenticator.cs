@@ -1,5 +1,6 @@
 using System.Xml;
 using System.Text.Json;
+using System.Security.Cryptography;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -57,18 +58,28 @@ namespace Infrastructure.Services
             NotifyAuthenticationStateChanged(Task.FromResult(autheticationState));
         }
 
-        public async Task PersistentLoginAsync()
+        public async Task PersistentLogInAsync()
         {
-            var result = await localStorage!.GetAsync<string>("identity");
-            if(result.Success)
+            try
             {
+                var result = await localStorage!.GetAsync<string>("identity");
+                if(!result.Success)
+                    return;
+
                 User user = JsonSerializer.Deserialize<User>(result.Value!)!;
                 var identity = CreateIdentity(user);
                 var principal = new ClaimsPrincipal(identity);
                 var autheticationState = new AuthenticationState(principal);
-                NotifyAuthenticationStateChanged(Task.FromResult(autheticationState));
 
+                NotifyAuthenticationStateChanged(Task.FromResult(autheticationState));
             }
+            catch (CryptographicException exception)
+            {
+                string resolution = "Deleting previous Identity...";
+                System.Console.WriteLine($"{exception}\n{resolution}");
+                await localStorage.DeleteAsync("identity");
+            }
+
         }
 
         private ClaimsIdentity CreateIdentity(User user)

@@ -78,6 +78,7 @@
     private int cost;
     private IBrowserFile? file;
     private string subfolder = $"images/ktp";
+
     private void OnInputFileChange(InputFileChangeEventArgs e)
     {
         var x = Order.DateDepart;
@@ -116,11 +117,9 @@
     {
         if(file is not null)
         {
-            var fileName = file.Name;
-            var guid = Guid.NewGuid().ShortenGuid();
-            
-
             await FileManager!.UploadAsync(file, subfolder);
+            Order.KTP = FileManager.RenameFile(file, subfolder);
+
             var (car, result) = AppDbContext.GetCar(CarId);
             car.Status = !car.Status;
             AppDbContext.UpdateCarRentStatus(car);
