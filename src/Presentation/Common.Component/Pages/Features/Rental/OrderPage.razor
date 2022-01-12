@@ -6,7 +6,6 @@
 @inject FileManager FileManager
 @inject AppDbContext AppDbContext
 
-
 <PageTitle>Order</PageTitle>
 @* <EditForm Model="@Order" OnValidSubmit="@SendOrder"> *@
 <EditForm Model="@Order">
@@ -76,7 +75,6 @@
     public int CarId { get; set; }
     public Order Order { get; set; } = new Order();
     private int rentDuration;
-
     private int cost;
     private IBrowserFile? file;
     private string subfolder = $"images/ktp";
