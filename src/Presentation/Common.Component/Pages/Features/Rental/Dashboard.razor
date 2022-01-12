@@ -1,0 +1,100 @@
+@page "/dashboard"
+
+@using System.Collections.Generic
+@using Domain.Models
+@using Infrastructure.Persistence
+
+@inject AppDbContext AppDbContext
+
+<div class="_dashboard">
+<table>
+    <tr>
+        <th>Order</th>
+        <th>Mobil</th>
+        <th>Nama</th>
+        <th>Contact</th>
+        <th>KTP</th>
+        <th>Tanggal Pengambilan</th>
+        <th>Tanggal Pengembalian</th>
+        <th>Lama Peminjaman</th>
+        <th>Konfirmasi</th>
+    </tr>
+    @if(Orders.Count > 0)
+    {
+        @foreach (Order order in Orders)
+        {
+            <td>@order.Id</td>
+            <td>@order.Car!.Brand</td>
+            <td>@order.FullName</td>
+            <td>@order.ContactNumber</td>
+            <td>
+            <button
+                class="btn btn-primary">
+                Tampilkan
+            </button>
+            </td>
+            <td>@order.DateDepart</td>
+            <td>@order.DateReturn</td>
+            <td>@order.RentDuration Hari</td>
+            <td>
+                <button
+                    class="btn btn-warning">
+                    Konfrimasi
+                </button>
+            </td>
+        }
+    }
+
+    @* <tr>
+        <td>966ab06e-a6d0-4443-a131-e81a4268f62a</td>
+        <td>Badruz Zaman</td>
+        <td>Badruz Zaman</td>
+        <td>
+        <button class="btn btn-primary">Tampilkan</button>
+        </td>
+        <td>30/12/2021</td>
+        <td>2/1/2022</td>
+        <td>4 Hari</td>
+        <td>
+            <button class="btn btn-warning">Konfrimasi</button>
+        </td>
+    </tr>
+    <tr>
+        <td>14e56e28-dfff-414e-9224-d879f24ddac6</td>
+        <td>Febri Irianto</td>
+        <td>Badruz Zaman</td>
+        <td>
+            <button class="btn btn-primary">Tampilkan</button>
+        </td>
+        <td>5/3/2021</td>
+        <td>5/5/2022</td>
+        <td>2 Hari</td>
+        <td>
+            <button class="btn btn-warning">Konfrimasi</button>
+        </td>
+    </tr> *@
+    </table>
+</div>
+
+@code{
+    #nullable disable
+    public List<Order> Orders = new List<Order>();
+
+    protected override void OnInitialized()
+    {
+        Orders = AppDbContext.Orders.ToList();
+        this.StateHasChanged();
+    }
+
+    @* protected override void OnInitialized(bool firstRender)
+    {
+        Orders = AppDbContext.Orders.ToList();
+        this.StateHasChanged();
+    } *@
+
+    protected Car GetCar(int carId)
+    {
+        var(car, status) = AppDbContext.GetCar(carId);
+        return car;
+    }
+}

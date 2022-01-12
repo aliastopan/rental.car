@@ -1,0 +1,13 @@
+._dashboard{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat';
+}
+
+tr{
+    border-bottom: 1px solid black;
+}
+
+th, td{
+    padding: 0.5rem;
+}
