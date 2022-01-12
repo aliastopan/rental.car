@@ -5,6 +5,7 @@
 @using Infrastructure.Persistence
 @inject FileManager FileManager
 @inject AppDbContext AppDbContext
+@inject NavigationManager NavigationManager
 
 <PageTitle>Order</PageTitle>
 @* <EditForm Model="@Order" OnValidSubmit="@SendOrder"> *@
@@ -110,7 +111,10 @@
     private async Task SendOrder()
     {
         if(rentDuration > 0)
+        {
             await UploadFile();
+            NavigationManager.NavigateTo("/");
+        }
     }
 
     private async Task UploadFile()
