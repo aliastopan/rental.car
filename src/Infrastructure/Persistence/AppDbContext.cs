@@ -22,9 +22,15 @@ namespace Infrastructure.Persistence
             return (result, result is not null)!;
         }
 
-        public async void UpdateCarRentStatus(Car car)
+        public async Task UpdateCarAsync(Car car)
         {
             this.Cars!.Update(car);
+            await this.SaveChangesAsync();
+        }
+
+        public async Task UpdateOrderAsync(Order order)
+        {
+            this.Orders!.Update(order);
             await this.SaveChangesAsync();
         }
 
