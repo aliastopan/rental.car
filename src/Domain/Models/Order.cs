@@ -40,7 +40,7 @@ namespace Domain.Models
                 cost = 250000 * RentDuration;
                 return cost;
             }
-            init {
+            set {
                 cost = value;
             }
         }

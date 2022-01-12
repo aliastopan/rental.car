@@ -88,10 +88,13 @@
     public void DebugValue()
     {
         RentDurationCalc();
+        CostCalc();
     }
 
     public void CostCalc()
     {
+        @* cost = 250000 * rentDuration;
+        Order.Cost = cost; *@
         cost = Order.Cost;
     }
 
