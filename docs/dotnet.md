@@ -7,9 +7,9 @@ dotnet ef --startup-project [startup.csproj] database update "[name]" --project 
     migration add
     database update
 
-dotnet ef --startup-project .\src\Presentation\Server\ migrations add "sqlite" --project .\src\Infrastructure\ --output-dir "Persistence/Migrations"
+dotnet ef --startup-project .\src\Presentation\Server\ migrations add "repo" --project .\src\Infrastructure\ --output-dir "Persistence/Migrations"
 
-dotnet ef --startup-project .\src\Presentation\Server\ database update "sqlite" --project .\src\Infrastructure\
+dotnet ef --startup-project .\src\Presentation\Server\ database update "repo" --project .\src\Infrastructure\
 
 
 

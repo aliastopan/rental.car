@@ -39,11 +39,42 @@
                 <td>@order.DateReturn</td>
                 <td>@order.RentDuration Hari</td>
                 <td>
-                    @if(@order.RentStatus == 0)
+                    @switch (@order.RentStatus)
+                    {
+                        case 0 :
+                            <button
+                                class="btn btn-warning"
+                                @onclick="@( eventArgs => UpdateOrderAsync(order, 1))">
+                                Konfrimasi
+                            </button>
+                            break;
+
+                        case 1 :
+                            <button
+                                class="btn btn-info"
+                                @onclick="@( eventArgs => UpdateOrderAsync(order, 2))">
+                                Progress (On Going)
+                            </button>
+                            break;
+
+                        case 2:
+                            <button
+                            class="btn btn-dark"
+                                @onclick="@( eventArgs => UpdateOrderAsync(order, 3))">
+                                Progress (Selesai)
+                            </button>
+                            break;
+                        default:
+                            <button class="btn btn-light">
+                                Selesai
+                            </button>
+                            break;
+                    }
+                    @* @if(@order.RentStatus == 0)
                     {
                         <button
                             class="btn btn-warning"
-                            @onclick="@( eventArgs => UpdateOrderAsync(order))">
+                            @onclick="@( eventArgs => UpdateOrderAsync(order, 1))">
                             Konfrimasi
                         </button>
                     }
@@ -53,7 +84,7 @@
                             class="btn btn-info">
                             On Progress
                         </button>
-                    }
+                    } *@
                 </td>
             </tr>
         }
@@ -90,6 +121,20 @@
     {
         order.RentStatus = 1;
         await AppDbContext.UpdateOrderAsync(order);
+        this.StateHasChanged();
+    }
+
+    protected async Task UpdateOrderAsync(Order order, int rentStatus)
+    {
+        order.RentStatus = rentStatus;
+        await AppDbContext.UpdateOrderAsync(order);
+        if(rentStatus == 3)
+        {
+            System.Console.WriteLine("CAR STATUS UPDATE TO FALSE");
+            order.Car.Status = false;
+            await AppDbContext.UpdateCarAsync(order.Car);
+        }
+
         this.StateHasChanged();
     }
 
